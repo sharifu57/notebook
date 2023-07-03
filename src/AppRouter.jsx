@@ -9,6 +9,7 @@ import {
 import Login from './pages/login';
 import AppLayout from './AppLayout';
 import Home from './pages/home';
+import Notes from './pages/notes';
 
 
 const router = createBrowserRouter(
@@ -16,7 +17,8 @@ const router = createBrowserRouter(
         <Route>
             <Route path="/" element={<Login/>}/>
             <Route element={<AppLayout />}>
-                <Route path='/' element={<Home />}/>
+                <Route path='/home' element={<Home />}/>
+                <Route path='/notes' element={<Notes />}/>
             </Route>
         </Route>
     )

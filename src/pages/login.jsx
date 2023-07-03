@@ -24,6 +24,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { loginUser } from "../providers/api/user";
 import { post  } from "../providers/api/request"
+import { useNavigate } from 'react-router-dom';
 
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -31,6 +32,7 @@ const endpoint = "/login"
 
 function Login() {
   const toast = useToast()
+  const navigate = useNavigate()
   const statuses = ['success', 'error', 'warning', 'info']
   const [isLoading, setLoading] = useState(false);
   const [response, setResponse] = useState(false);
@@ -58,6 +60,8 @@ function Login() {
       if(res?.status == 200){
         setLoading(false);
         e.target.reset()
+        localStorage.setItem('user', JSON.stringify(res))
+        navigate('/home')
       }else{
         setLoading(false);
         seStatus(true)
@@ -66,6 +70,8 @@ function Login() {
       
     } catch (error) {
       setLoading(false);
+      e.target.reset()
+      setResponse("Failed to Connect to Server")
       console.log("Error:", error);
       throw error;
     }
